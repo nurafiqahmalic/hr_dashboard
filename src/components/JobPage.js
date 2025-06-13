@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
+import Sidebar from './Sidebar'; // Sidebar component
 import { useLocation } from 'react-router-dom';
-import Sidebar from './Sidebar'; 
-import { HiPencil, HiTrash } from 'react-icons/hi';
+import { HiPencil, HiTrash, HiPlus } from 'react-icons/hi';
 
 const JobPage = () => {
   const location = useLocation();
-  const [sidebarOpen, setSidebarOpen] = useState(false); 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const [jobToEdit, setJobToEdit] = useState(null); 
-  const [jobData] = useState([
+  const [newJob, setNewJob] = useState({
+    jobTitle: '',
+    department: '',
+    datePosted: '',
+    status: 'OPEN',
+  });
+  const [jobData, setJobData] = useState([
     {
       jobTitle: 'Software Engineer',
       department: 'Engineering',
@@ -35,19 +40,23 @@ const JobPage = () => {
     },
   ]);
 
-  const openEditModal = (job) => {
-    setJobToEdit(job);
+  const openModal = () => {
     setModalOpen(true);
   };
 
   const closeModal = () => {
     setModalOpen(false);
-    setJobToEdit(null);
+    setNewJob({
+      jobTitle: '',
+      department: '',
+      datePosted: '',
+      status: 'OPEN',
+    });
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log('Updated Job:', jobToEdit);
+    setJobData([...jobData, newJob]);
     closeModal();
   };
 
@@ -70,9 +79,9 @@ const JobPage = () => {
     <div className="flex min-h-screen bg-gray-100 font-roboto">
       {/* Sidebar */}
       <Sidebar
-        currentRoute={location.pathname}
         sidebarOpen={sidebarOpen}
         toggleSidebar={toggleSidebar}
+        currentRoute={location.pathname}
       />
 
       {/* Main Content */}
@@ -83,9 +92,18 @@ const JobPage = () => {
 
         {/* Job Openings Table */}
         <div className="bg-white p-6 shadow-md rounded-lg">
-          <h2 className="text-xl font-semibold text-[#605EA1] mb-4">
-            Available Job Openings
-          </h2>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold text-[#605EA1] mb-4">
+              Available Job Openings
+            </h2>
+            <button
+              onClick={openModal}
+              className="bg-[#605EA1] text-white py-2 px-4 rounded-full flex items-center"
+            >
+              <HiPlus className="mr-2" />
+              New Job Opening
+            </button>
+          </div>
           <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
             <thead className="bg-gray-200 text-[#605EA1]">
               <tr>
@@ -110,10 +128,7 @@ const JobPage = () => {
                     </span>
                   </td>
                   <td className="py-3 px-6">
-                    <button
-                      onClick={() => openEditModal(job)}
-                      className="inline-block mr-2 py-2 px-4 rounded-full bg-[#605EA1] text-white font-semibold"
-                    >
+                    <button className="inline-block mr-2 py-2 px-4 rounded-full bg-[#605EA1] text-white font-semibold">
                       <HiPencil className="inline-block" />
                     </button>
                     <button className="inline-block py-2 px-4 rounded-full bg-red-500 text-white font-semibold">
@@ -127,12 +142,12 @@ const JobPage = () => {
         </div>
       </div>
 
-      {/* Modal for Editing Job */}
+      {/* Modal for New Job Opening */}
       {modalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
             <h2 className="text-2xl font-semibold text-[#605EA1] mb-6">
-              Edit Job
+              Create New Job Opening
             </h2>
             <form onSubmit={handleFormSubmit}>
               <div className="mb-4">
@@ -141,9 +156,9 @@ const JobPage = () => {
                 </label>
                 <input
                   type="text"
-                  value={jobToEdit?.jobTitle || ''}
+                  value={newJob.jobTitle}
                   onChange={(e) =>
-                    setJobToEdit({ ...jobToEdit, jobTitle: e.target.value })
+                    setNewJob({ ...newJob, jobTitle: e.target.value })
                   }
                   className="w-full p-2 border border-gray-300 rounded"
                 />
@@ -154,9 +169,9 @@ const JobPage = () => {
                 </label>
                 <input
                   type="text"
-                  value={jobToEdit?.department || ''}
+                  value={newJob.department}
                   onChange={(e) =>
-                    setJobToEdit({ ...jobToEdit, department: e.target.value })
+                    setNewJob({ ...newJob, department: e.target.value })
                   }
                   className="w-full p-2 border border-gray-300 rounded"
                 />
@@ -167,9 +182,9 @@ const JobPage = () => {
                 </label>
                 <input
                   type="date"
-                  value={jobToEdit?.datePosted || ''}
+                  value={newJob.datePosted}
                   onChange={(e) =>
-                    setJobToEdit({ ...jobToEdit, datePosted: e.target.value })
+                    setNewJob({ ...newJob, datePosted: e.target.value })
                   }
                   className="w-full p-2 border border-gray-300 rounded"
                 />
@@ -179,9 +194,9 @@ const JobPage = () => {
                   Status
                 </label>
                 <select
-                  value={jobToEdit?.status || ''}
+                  value={newJob.status}
                   onChange={(e) =>
-                    setJobToEdit({ ...jobToEdit, status: e.target.value })
+                    setNewJob({ ...newJob, status: e.target.value })
                   }
                   className="w-full p-2 border border-gray-300 rounded"
                 >
@@ -201,7 +216,7 @@ const JobPage = () => {
                   type="submit"
                   className="bg-[#605EA1] text-white py-2 px-4 rounded"
                 >
-                  Save Changes
+                  Save Job Opening
                 </button>
               </div>
             </form>
