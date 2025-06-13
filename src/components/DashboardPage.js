@@ -120,7 +120,7 @@ const DashboardPage = () => {
           onClick={handleLogout}
           className="absolute top-5 right-5 p-3 bg-red-500 text-white rounded-full flex items-center justify-center"
         >
-          <HiLogout className="text-lg" />
+          <HiLogout className="text-sm" />
         </button>
 
         {/* Add the layout for your 4 containers, graph, and table */}
