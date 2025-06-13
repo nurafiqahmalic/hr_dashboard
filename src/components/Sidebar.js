@@ -4,6 +4,7 @@ import {
   HiOutlineCalendar,
   HiOutlineBriefcase,
   HiOutlineUsers,
+  HiOutlineUser,
   HiOutlineCog,
 } from 'react-icons/hi';
 
@@ -67,7 +68,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, currentRoute }) => {
             currentRoute === '/employee' ? 'bg-white text-[#2D336B]' : ''
           }`}
         >
-          <HiOutlineUsers />
+          <HiOutlineUser />
           {sidebarOpen && <span className="font-semibold ">Employee</span>}
         </Link>
 

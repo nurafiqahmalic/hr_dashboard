@@ -29,17 +29,17 @@ ChartJS.register(
 
 const DashboardPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [totalJobOpenings,] = useState(4);
-  const [applicationsToday,] = useState(18);
-  const [interviewsScheduled,] = useState(4);
-  const [employeesOnboarding,] = useState(2);
+  const [totalJobOpenings] = useState(4);
+  const [applicationsToday] = useState(18);
+  const [interviewsScheduled] = useState(4);
+  const [employeesOnboarding] = useState(2);
 
-  const [candidates,] = useState([
+  const [candidates] = useState([
     { name: 'John Doe', position: 'Software Engineer', percentage: 87 },
     { name: 'Jane Doe', position: 'Software Engineer', percentage: 90 },
   ]);
 
-  const [onboardingTasks,] = useState([
+  const [onboardingTasks] = useState([
     {
       task: 'Briefing and meeting with newcomers',
       assignedTo: 'adina@test.com',
