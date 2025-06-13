@@ -7,10 +7,29 @@ import 'react-calendar/dist/Calendar.css';
 const SchedulePage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [date, setDate] = useState(new Date());
+  const [toDoList, setToDoList] = useState([ 
+    { task: 'Follow up with candidate', completed: false },
+    { task: 'Prepare onboarding materials', completed: false },
+    { task: 'Schedule interview with candidate', completed: false },
+    { task: 'Send offer letter', completed: false },
+  ]);
+
+  const [onboardingTasks, setOnboardingTasks] = useState([ 
+    { task: 'Briefing and meeting with newcomers', assignedTo: 'adina@test.com', dueDate: '2nd May 2025' },
+    { task: 'Office tour for new hires', assignedTo: 'bob@test.com', dueDate: '3rd May 2025' },
+  ]);
+
   const location = useLocation();
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
+  };
+
+  // Toggle completion of To-Do tasks
+  const toggleTaskCompletion = (index) => {
+    const updatedList = [...toDoList];
+    updatedList[index].completed = !updatedList[index].completed;
+    setToDoList(updatedList);
   };
 
   return (
@@ -28,10 +47,9 @@ const SchedulePage = () => {
 
         {/* Schedule Content */}
         <div className="mt-6 grid grid-cols-2 gap-6">
-          {/* Calendar Section (Make this larger than the TODO reminder) */}
+          {/* Calendar Section */}
           <div className="bg-white p-6 shadow-md rounded-lg col-span-2 lg:col-span-1">
             <h2 className="text-xl font-semibold text-[#605EA1] mb-2">Calendar</h2>
-            {/* Flex container for centering the calendar */}
             <div className="flex justify-center items-center">
               <Calendar
                 onChange={setDate}
@@ -45,22 +63,19 @@ const SchedulePage = () => {
           <div className="bg-white p-6 shadow-md rounded-lg col-span-2 lg:col-span-1">
             <h2 className="text-xl font-semibold text-[#605EA1] mb-2">To Do Reminder</h2>
             <ul className="space-y-3">
-              <li className="flex items-center">
-                <input type="checkbox" className="mr-3" />
-                <span>Follow up with candidate</span>
-              </li>
-              <li className="flex items-center">
-                <input type="checkbox" className="mr-3" />
-                <span>Follow up with candidate</span>
-              </li>
-              <li className="flex items-center">
-                <input type="checkbox" className="mr-3" />
-                <span>Follow up with candidate</span>
-              </li>
-              <li className="flex items-center">
-                <input type="checkbox" className="mr-3" />
-                <span>Follow up with candidate</span>
-              </li>
+              {toDoList.map((task, index) => (
+                <li key={index} className="flex items-center">
+                  <input
+                    type="checkbox"
+                    className="mr-3"
+                    checked={task.completed}
+                    onChange={() => toggleTaskCompletion(index)}
+                  />
+                  <span className={task.completed ? 'line-through text-gray-500' : ''}>
+                    {task.task}
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -69,7 +84,7 @@ const SchedulePage = () => {
         <div className="bg-white p-6 shadow-md rounded-lg col-span-2 lg:col-span-1">
           <h2 className="text-xl font-semibold text-[#605EA1]">Onboarding</h2>
           <table className="min-w-full mt-4 bg-white rounded-lg shadow-md overflow-hidden">
-              <thead className="bg-gray-200 text-[#605EA1]">
+            <thead className="bg-gray-200 text-[#605EA1]">
               <tr>
                 <th className="py-3 px-6 text-left">Task</th>
                 <th className="py-3 px-6 text-left">Assigned to</th>
@@ -78,22 +93,14 @@ const SchedulePage = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-t">
-                <td className="py-3 px-6">
-                  Briefing and meeting with newcomers
-                </td>
-                <td className="py-3 px-6">adina@test.com</td>
-                <td className="py-3 px-6">2nd May 2025</td>
-                <td className="py-3 px-6">-</td>
-              </tr>
-              <tr className="border-t">
-                <td className="py-3 px-6">
-                  Briefing and meeting with newcomers
-                </td>
-                <td className="py-3 px-6">adina@test.com</td>
-                <td className="py-3 px-6">2nd May 2025</td>
-                <td className="py-3 px-6">-</td>
-              </tr>
+              {onboardingTasks.map((task, index) => (
+                <tr key={index} className="border-t">
+                  <td className="py-3 px-6">{task.task}</td>
+                  <td className="py-3 px-6">{task.assignedTo}</td>
+                  <td className="py-3 px-6">{task.dueDate}</td>
+                  <td className="py-3 px-6">-</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
