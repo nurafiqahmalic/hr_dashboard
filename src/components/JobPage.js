@@ -5,11 +5,10 @@ import { HiPencil, HiTrash } from 'react-icons/hi'; // Import the required icons
 
 const JobPage = () => {
   const location = useLocation();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [jobToEdit, setJobToEdit] = useState(null); // For storing the job being edited
 
-  const [jobData, setJobData] = useState([
+  const [jobData,] = useState([
     {
       jobTitle: 'Software Engineer',
       department: 'Engineering',
@@ -36,9 +35,6 @@ const JobPage = () => {
     },
   ]);
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
 
   const openEditModal = (job) => {
     setJobToEdit(job);

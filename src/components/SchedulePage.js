@@ -14,7 +14,7 @@ const SchedulePage = () => {
     { task: 'Send offer letter', completed: false },
   ]);
 
-  const [onboardingTasks, setOnboardingTasks] = useState([
+  const [onboardingTasks] = useState([
     {
       task: 'Briefing and meeting with newcomers',
       assignedTo: 'adina@test.com',
