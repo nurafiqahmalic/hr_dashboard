@@ -5,7 +5,6 @@ import {
   HiOutlineBriefcase,
   HiOutlineUsers,
   HiOutlineUser,
-  HiOutlineCog,
 } from 'react-icons/hi';
 
 const Sidebar = ({ sidebarOpen, toggleSidebar, currentRoute }) => {
