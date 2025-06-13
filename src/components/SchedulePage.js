@@ -7,16 +7,24 @@ import 'react-calendar/dist/Calendar.css';
 const SchedulePage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [date, setDate] = useState(new Date());
-  const [toDoList, setToDoList] = useState([ 
+  const [toDoList, setToDoList] = useState([
     { task: 'Follow up with candidate', completed: false },
     { task: 'Prepare onboarding materials', completed: false },
     { task: 'Schedule interview with candidate', completed: false },
     { task: 'Send offer letter', completed: false },
   ]);
 
-  const [onboardingTasks, setOnboardingTasks] = useState([ 
-    { task: 'Briefing and meeting with newcomers', assignedTo: 'adina@test.com', dueDate: '2nd May 2025' },
-    { task: 'Office tour for new hires', assignedTo: 'bob@test.com', dueDate: '3rd May 2025' },
+  const [onboardingTasks, setOnboardingTasks] = useState([
+    {
+      task: 'Briefing and meeting with newcomers',
+      assignedTo: 'adina@test.com',
+      dueDate: '2nd May 2025',
+    },
+    {
+      task: 'Office tour for new hires',
+      assignedTo: 'bob@test.com',
+      dueDate: '3rd May 2025',
+    },
   ]);
 
   const location = useLocation();
@@ -49,7 +57,9 @@ const SchedulePage = () => {
         <div className="mt-6 grid grid-cols-2 gap-6">
           {/* Calendar Section */}
           <div className="bg-white p-6 shadow-md rounded-lg col-span-2 lg:col-span-1">
-            <h2 className="text-xl font-semibold text-[#605EA1] mb-2">Calendar</h2>
+            <h2 className="text-xl font-semibold text-[#605EA1] mb-2">
+              Calendar
+            </h2>
             <div className="flex justify-center items-center">
               <Calendar
                 onChange={setDate}
@@ -61,7 +71,9 @@ const SchedulePage = () => {
 
           {/* TODO Reminder Section */}
           <div className="bg-white p-6 shadow-md rounded-lg col-span-2 lg:col-span-1">
-            <h2 className="text-xl font-semibold text-[#605EA1] mb-2">To Do Reminder</h2>
+            <h2 className="text-xl font-semibold text-[#605EA1] mb-2">
+              To Do Reminder
+            </h2>
             <ul className="space-y-3">
               {toDoList.map((task, index) => (
                 <li key={index} className="flex items-center">
@@ -71,7 +83,11 @@ const SchedulePage = () => {
                     checked={task.completed}
                     onChange={() => toggleTaskCompletion(index)}
                   />
-                  <span className={task.completed ? 'line-through text-gray-500' : ''}>
+                  <span
+                    className={
+                      task.completed ? 'line-through text-gray-500' : ''
+                    }
+                  >
                     {task.task}
                   </span>
                 </li>

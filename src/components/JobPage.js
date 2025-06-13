@@ -64,11 +64,15 @@ const JobPage = () => {
 
       {/* Main Content */}
       <div className="flex-1 p-8">
-        <h1 className="text-3xl font-semibold text-[#605EA1] mb-6">Job Openings</h1>
+        <h1 className="text-3xl font-semibold text-[#605EA1] mb-6">
+          Job Openings
+        </h1>
 
         {/* Job Openings Table */}
         <div className="bg-white p-6 shadow-md rounded-lg">
-          <h2 className="text-xl font-semibold text-[#605EA1] mb-4">Available Job Openings</h2>
+          <h2 className="text-xl font-semibold text-[#605EA1] mb-4">
+            Available Job Openings
+          </h2>
           <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
             <thead className="bg-gray-200 text-[#605EA1]">
               <tr>
@@ -85,16 +89,23 @@ const JobPage = () => {
                   <td className="py-3 px-6">{job.jobTitle}</td>
                   <td className="py-3 px-6">{job.department}</td>
                   <td className="py-3 px-6">{job.datePosted}</td>
-                  <td className={`py-3 px-6 ${job.status === 'OPEN' ? 'text-green-500' : 'text-red-500'}`}>
+                  <td
+                    className={`py-3 px-6 ${job.status === 'OPEN' ? 'text-green-500' : 'text-red-500'}`}
+                  >
                     {job.status}
                   </td>
                   <td className="py-3 px-6">
-                    <button onClick={() => openEditModal(job)} className="mr-4 text-blue-500">
-                      <HiPencil className="inline-block mr-1" /> {/* Pen Icon */}
+                    <button
+                      onClick={() => openEditModal(job)}
+                      className="mr-4 text-blue-500"
+                    >
+                      <HiPencil className="inline-block mr-1" />{' '}
+                      {/* Pen Icon */}
                       Edit
                     </button>
                     <button className="text-red-500">
-                      <HiTrash className="inline-block mr-1" /> {/* Trash Icon */}
+                      <HiTrash className="inline-block mr-1" />{' '}
+                      {/* Trash Icon */}
                       Delete
                     </button>
                   </td>
@@ -109,44 +120,62 @@ const JobPage = () => {
       {modalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
-            <h2 className="text-2xl font-semibold text-[#605EA1] mb-6">Edit Job</h2>
+            <h2 className="text-2xl font-semibold text-[#605EA1] mb-6">
+              Edit Job
+            </h2>
             <form onSubmit={handleFormSubmit}>
               <div className="mb-4">
-                <label className="block text-sm font-semibold text-gray-700">Job Title</label>
+                <label className="block text-sm font-semibold text-gray-700">
+                  Job Title
+                </label>
                 <input
                   type="text"
                   value={jobToEdit?.jobTitle || ''}
-                  onChange={(e) => setJobToEdit({ ...jobToEdit, jobTitle: e.target.value })}
+                  onChange={(e) =>
+                    setJobToEdit({ ...jobToEdit, jobTitle: e.target.value })
+                  }
                   className="w-full p-2 border border-gray-300 rounded"
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-semibold text-gray-700">Department</label>
+                <label className="block text-sm font-semibold text-gray-700">
+                  Department
+                </label>
                 <input
                   type="text"
                   value={jobToEdit?.department || ''}
-                  onChange={(e) => setJobToEdit({ ...jobToEdit, department: e.target.value })}
+                  onChange={(e) =>
+                    setJobToEdit({ ...jobToEdit, department: e.target.value })
+                  }
                   className="w-full p-2 border border-gray-300 rounded"
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-semibold text-gray-700">Date Posted</label>
+                <label className="block text-sm font-semibold text-gray-700">
+                  Date Posted
+                </label>
                 <input
                   type="date"
                   value={jobToEdit?.datePosted || ''}
-                  onChange={(e) => setJobToEdit({ ...jobToEdit, datePosted: e.target.value })}
+                  onChange={(e) =>
+                    setJobToEdit({ ...jobToEdit, datePosted: e.target.value })
+                  }
                   className="w-full p-2 border border-gray-300 rounded"
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-semibold text-gray-700">Status</label>
+                <label className="block text-sm font-semibold text-gray-700">
+                  Status
+                </label>
                 <select
                   value={jobToEdit?.status || ''}
-                  onChange={(e) => setJobToEdit({ ...jobToEdit, status: e.target.value })}
+                  onChange={(e) =>
+                    setJobToEdit({ ...jobToEdit, status: e.target.value })
+                  }
                   className="w-full p-2 border border-gray-300 rounded"
                 >
-                  <option value="OPEN">OPEN</option>
-                  <option value="CLOSED">CLOSED</option>
+                  <option value="OPEN">Open</option>
+                  <option value="CLOSED">Closed</option>
                 </select>
               </div>
               <div className="flex justify-end">
