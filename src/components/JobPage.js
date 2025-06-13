@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import Sidebar from './Sidebar'; // Import the Sidebar component
-import { HiPencil, HiTrash } from 'react-icons/hi'; // Icons for edit and delete actions
+import Sidebar from './Sidebar'; 
+import { HiPencil, HiTrash } from 'react-icons/hi';
 
 const JobPage = () => {
   const location = useLocation();
-  const [sidebarOpen, setSidebarOpen] = useState(false); // Sidebar starts collapsed
+  const [sidebarOpen, setSidebarOpen] = useState(false); 
   const [modalOpen, setModalOpen] = useState(false);
-  const [jobToEdit, setJobToEdit] = useState(null); // For storing the job being edited
-
+  const [jobToEdit, setJobToEdit] = useState(null); 
   const [jobData] = useState([
     {
       jobTitle: 'Software Engineer',

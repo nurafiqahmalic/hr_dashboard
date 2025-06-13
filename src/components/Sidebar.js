@@ -72,7 +72,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, currentRoute }) => {
           {sidebarOpen && <span className="font-semibold ">Employee</span>}
         </Link>
 
-        <Link
+        {/* <Link
           to="/settings"
           className={`block text-lg flex items-center space-x-2 px-4 py-2 rounded-md ${
             currentRoute === '/settings' ? 'bg-white text-[#2D336B]' : ''
@@ -80,7 +80,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, currentRoute }) => {
         >
           <HiOutlineCog />
           {sidebarOpen && <span className="font-semibold ">Settings</span>}
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

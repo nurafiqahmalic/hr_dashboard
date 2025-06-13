@@ -1,98 +1,95 @@
 import React, { useState } from 'react';
+import Sidebar from './Sidebar'; // Sidebar component
 import { useLocation } from 'react-router-dom';
-import Sidebar from './Sidebar';
-import { HiPencil, HiTrash } from 'react-icons/hi'; 
+import { HiPencil, HiTrash } from 'react-icons/hi';
 
-const CandidatesPage = () => {
-  const location = useLocation();
-  const [sidebarOpen, setSidebarOpen] = useState(false); 
+const EmployeePage = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const [candidateToEdit, setCandidateToEdit] = useState(null);
-
-  const [candidateData] = useState([
+  const [employeeToEdit, setEmployeeToEdit] = useState(null);
+  const [employeeData, setEmployeeData] = useState([
     {
       name: 'John Doe',
       position: 'Sales Specialist',
-      status: 'Screening',
+      status: 'Active',
     },
     {
       name: 'Ahmad Abu',
       position: 'IT Intern',
-      status: 'Interview',
-    },
-    {
-      name: 'Nur Alia',
-      position: 'IT Intern',
-      status: 'Rejected',
+      status: 'Probation',
     },
     {
       name: 'Alice',
       position: 'Software Engineer',
-      status: 'Offer',
+      status: 'Permanent',
     },
     {
       name: 'Adina',
       position: 'Sales Specialist',
-      status: 'Interview',
+      status: 'On Leave',
     },
   ]);
 
-  const openEditModal = (candidate) => {
-    setCandidateToEdit(candidate);
+  const openEditModal = (employee) => {
+    setEmployeeToEdit(employee);
     setModalOpen(true);
   };
 
   const closeModal = () => {
     setModalOpen(false);
-    setCandidateToEdit(null);
+    setEmployeeToEdit(null);
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log('Updated Candidate:', candidateToEdit);
+    setEmployeeData(
+      employeeData.map((emp) =>
+        emp.name === employeeToEdit.name ? employeeToEdit : emp
+      )
+    );
     closeModal();
-  };
-
-  const getStatusClass = (status) => {
-    switch (status) {
-      case 'Screening':
-        return 'bg-blue-100 text-blue-500';
-      case 'Interview':
-        return 'bg-yellow-100 text-yellow-500';
-      case 'Rejected':
-        return 'bg-red-100 text-red-500';
-      case 'Offer':
-        return 'bg-green-100 text-green-500';
-      default:
-        return 'bg-gray-100 text-gray-500';
-    }
   };
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
+  const getStatusClass = (status) => {
+    switch (status) {
+      case 'Active':
+        return 'bg-green-100 text-green-500';
+      case 'Probation':
+        return 'bg-yellow-100 text-yellow-500';
+      case 'Permanent':
+        return 'bg-blue-100 text-blue-500';
+      case 'On Leave':
+        return 'bg-orange-100 text-orange-500';
+      case 'Terminated':
+        return 'bg-red-100 text-red-500';
+      case 'Suspended':
+        return 'bg-gray-100 text-gray-500';
+      default:
+        return 'bg-gray-100 text-gray-500';
+    }
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-100 font-roboto">
       {/* Sidebar */}
       <Sidebar
-        currentRoute={location.pathname}
         sidebarOpen={sidebarOpen}
         toggleSidebar={toggleSidebar}
+        currentRoute={useLocation().pathname}
       />
 
       {/* Main Content */}
       <div className="flex-1 p-8">
-        <h1 className="text-3xl font-semibold text-[#605EA1] mb-6">
-          Candidates
-        </h1>
+        <h1 className="text-3xl font-semibold text-[#605EA1] mb-6">Employee</h1>
 
-        {/* Candidates Table */}
+        {/* Employee Table Section */}
         <div className="bg-white p-6 shadow-md rounded-lg">
-          <h2 className="text-xl font-semibold text-[#605EA1] mb-4">
-            Candidate List
-          </h2>
-          <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
+          <h2 className="text-xl font-semibold text-[#605EA1] mb-4">Employee List</h2>
+          <table className="min-w-full mt-4 bg-white rounded-lg shadow-md overflow-hidden">
             <thead className="bg-gray-200 text-[#605EA1]">
               <tr>
                 <th className="py-3 px-6 text-left">Name</th>
@@ -102,20 +99,20 @@ const CandidatesPage = () => {
               </tr>
             </thead>
             <tbody>
-              {candidateData.map((candidate, index) => (
+              {employeeData.map((employee, index) => (
                 <tr key={index} className="border-t">
-                  <td className="py-3 px-6">{candidate.name}</td>
-                  <td className="py-3 px-6">{candidate.position}</td>
+                  <td className="py-3 px-6">{employee.name}</td>
+                  <td className="py-3 px-6">{employee.position}</td>
                   <td className="py-3 px-6">
                     <span
-                      className={`inline-block py-1 px-3 rounded-full text-sm font-semibold ${getStatusClass(candidate.status)}`}
+                      className={`inline-block py-1 px-3 rounded-full text-sm font-semibold ${getStatusClass(employee.status)}`}
                     >
-                      {candidate.status}
+                      {employee.status}
                     </span>
                   </td>
                   <td className="py-3 px-6">
                     <button
-                      onClick={() => openEditModal(candidate)}
+                      onClick={() => openEditModal(employee)}
                       className="inline-block mr-2 py-2 px-4 rounded-full bg-[#605EA1] text-white font-semibold"
                     >
                       <HiPencil className="inline-block" />
@@ -131,24 +128,20 @@ const CandidatesPage = () => {
         </div>
       </div>
 
-      {/* Modal for Editing Candidate */}
+      {/* Modal for Editing Employee */}
       {modalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
-            <h2 className="text-2xl font-semibold text-[#605EA1] mb-6">
-              Edit Candidate
-            </h2>
+            <h2 className="text-2xl font-semibold text-[#605EA1] mb-6">Edit Employee</h2>
             <form onSubmit={handleFormSubmit}>
               <div className="mb-4">
-                <label className="block text-sm font-semibold text-gray-700">
-                  Name
-                </label>
+                <label className="block text-sm font-semibold text-gray-700">Name</label>
                 <input
                   type="text"
-                  value={candidateToEdit?.name || ''}
+                  value={employeeToEdit?.name || ''}
                   onChange={(e) =>
-                    setCandidateToEdit({
-                      ...candidateToEdit,
+                    setEmployeeToEdit({
+                      ...employeeToEdit,
                       name: e.target.value,
                     })
                   }
@@ -156,15 +149,13 @@ const CandidatesPage = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-semibold text-gray-700">
-                  Position
-                </label>
+                <label className="block text-sm font-semibold text-gray-700">Position</label>
                 <input
                   type="text"
-                  value={candidateToEdit?.position || ''}
+                  value={employeeToEdit?.position || ''}
                   onChange={(e) =>
-                    setCandidateToEdit({
-                      ...candidateToEdit,
+                    setEmployeeToEdit({
+                      ...employeeToEdit,
                       position: e.target.value,
                     })
                   }
@@ -172,23 +163,23 @@ const CandidatesPage = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-semibold text-gray-700">
-                  Status
-                </label>
+                <label className="block text-sm font-semibold text-gray-700">Status</label>
                 <select
-                  value={candidateToEdit?.status || ''}
+                  value={employeeToEdit?.status || ''}
                   onChange={(e) =>
-                    setCandidateToEdit({
-                      ...candidateToEdit,
+                    setEmployeeToEdit({
+                      ...employeeToEdit,
                       status: e.target.value,
                     })
                   }
                   className="w-full p-2 border border-gray-300 rounded"
                 >
-                  <option value="Screening">Screening</option>
-                  <option value="Interview">Interview</option>
-                  <option value="Rejected">Rejected</option>
-                  <option value="Offer">Offer</option>
+                  <option value="Active">Active</option>
+                  <option value="Probation">Probation</option>
+                  <option value="Permanent">Permanent</option>
+                  <option value="On Leave">On Leave</option>
+                  <option value="Terminated">Terminated</option>
+                  <option value="Suspended">Suspended</option>
                 </select>
               </div>
               <div className="flex justify-end">
@@ -214,4 +205,4 @@ const CandidatesPage = () => {
   );
 };
 
-export default CandidatesPage;
+export default EmployeePage;
