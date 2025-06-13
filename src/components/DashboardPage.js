@@ -29,6 +29,29 @@ ChartJS.register(
 
 const DashboardPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [totalJobOpenings,] = useState(4);
+  const [applicationsToday,] = useState(18);
+  const [interviewsScheduled,] = useState(4);
+  const [employeesOnboarding,] = useState(2);
+
+  const [candidates,] = useState([
+    { name: 'John Doe', position: 'Software Engineer', percentage: 87 },
+    { name: 'Jane Doe', position: 'Software Engineer', percentage: 90 },
+  ]);
+
+  const [onboardingTasks,] = useState([
+    {
+      task: 'Briefing and meeting with newcomers',
+      assignedTo: 'adina@test.com',
+      dueDate: '2nd May 2025',
+    },
+    {
+      task: 'Office tour for new hires',
+      assignedTo: 'bob@test.com',
+      dueDate: '3rd May 2025',
+    },
+  ]);
+
   const location = useLocation();
 
   const toggleSidebar = () => {
@@ -85,7 +108,7 @@ const DashboardPage = () => {
         <h1 className="text-3xl font-semibold text-[#605EA1] mb-6">
           HR Dashboard
         </h1>
-        <p className="text-lg mb-4">Hi Mock User! </p>
+        <p className="text-lg mb-4">Hi Mock User!</p>
 
         {/* Add the layout for your 4 containers, graph, and table */}
         <div className="grid grid-cols-4 gap-6 mb-8">
@@ -96,7 +119,9 @@ const DashboardPage = () => {
                 <h2 className="text-xl font-semibold text-white">
                   Total Job Openings
                 </h2>
-                <p className="ml-2 text-3xl font-semibold text-white">4</p>
+                <p className="ml-2 text-3xl font-semibold text-white">
+                  {totalJobOpenings}
+                </p>
               </div>
             </div>
           </div>
@@ -108,7 +133,9 @@ const DashboardPage = () => {
                 <h2 className="text-xl font-semibold text-white">
                   Applications Today
                 </h2>
-                <p className="ml-2 text-3xl font-semibold text-white">18</p>
+                <p className="ml-2 text-3xl font-semibold text-white">
+                  {applicationsToday}
+                </p>
               </div>
             </div>
           </div>
@@ -120,7 +147,9 @@ const DashboardPage = () => {
                 <h2 className="text-xl font-semibold text-white">
                   Interviews Scheduled
                 </h2>
-                <p className="ml-2 text-3xl font-semibold text-white">4</p>
+                <p className="ml-2 text-3xl font-semibold text-white">
+                  {interviewsScheduled}
+                </p>
               </div>
             </div>
           </div>
@@ -132,7 +161,9 @@ const DashboardPage = () => {
                 <h2 className="text-xl font-semibold text-white">
                   Employees Onboarding
                 </h2>
-                <p className="ml-2 text-3xl font-semibold text-white">2</p>
+                <p className="ml-2 text-3xl font-semibold text-white">
+                  {employeesOnboarding}
+                </p>
               </div>
             </div>
           </div>
@@ -149,7 +180,7 @@ const DashboardPage = () => {
             </div>
           </div>
           <div className="bg-white p-4 rounded-lg shadow-md">
-            {/* Table goes here */}
+            {/* Candidates Match Table */}
             <h2 className="text-xl font-semibold text-[#605EA1]">
               Candidates Match
             </h2>
@@ -162,16 +193,13 @@ const DashboardPage = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-t">
-                  <td className="py-3 px-6">John Doe</td>
-                  <td className="py-3 px-6">Software Engineer</td>
-                  <td className="py-3 px-6">87%</td>
-                </tr>
-                <tr className="border-t">
-                  <td className="py-3 px-6">Jane Doe</td>
-                  <td className="py-3 px-6">Software Engineer</td>
-                  <td className="py-3 px-6">90%</td>
-                </tr>
+                {candidates.map((candidate, index) => (
+                  <tr key={index} className="border-t">
+                    <td className="py-3 px-6">{candidate.name}</td>
+                    <td className="py-3 px-6">{candidate.position}</td>
+                    <td className="py-3 px-6">{candidate.percentage}%</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -190,22 +218,14 @@ const DashboardPage = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-t">
-                <td className="py-3 px-6">
-                  Briefing and meeting with newcomers
-                </td>
-                <td className="py-3 px-6">adina@test.com</td>
-                <td className="py-3 px-6">2nd May 2025</td>
-                <td className="py-3 px-6">-</td>
-              </tr>
-              <tr className="border-t">
-                <td className="py-3 px-6">
-                  Briefing and meeting with newcomers
-                </td>
-                <td className="py-3 px-6">adina@test.com</td>
-                <td className="py-3 px-6">2nd May 2025</td>
-                <td className="py-3 px-6">-</td>
-              </tr>
+              {onboardingTasks.map((task, index) => (
+                <tr key={index} className="border-t">
+                  <td className="py-3 px-6">{task.task}</td>
+                  <td className="py-3 px-6">{task.assignedTo}</td>
+                  <td className="py-3 px-6">{task.dueDate}</td>
+                  <td className="py-3 px-6">-</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
