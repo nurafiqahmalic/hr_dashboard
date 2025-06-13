@@ -6,8 +6,9 @@ import {
   HiOutlineDocumentText,
   HiOutlineCalendar,
   HiOutlineUsers,
-} from 'react-icons/hi';
-import { useLocation } from 'react-router-dom';
+  HiLogout, // Updated to HiLogout
+} from 'react-icons/hi'; // Use HiLogout instead of HiExit
+import { useLocation, useNavigate } from 'react-router-dom'; // useNavigate for redirection
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -53,6 +54,7 @@ const DashboardPage = () => {
   ]);
 
   const location = useLocation();
+  const navigate = useNavigate(); // Hook to navigate to login page
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -94,6 +96,11 @@ const DashboardPage = () => {
     },
   };
 
+  // Function to handle logout
+  const handleLogout = () => {
+    navigate('/login'); // Redirect to login page
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-100 font-roboto">
       {/* Sidebar */}
@@ -105,10 +112,16 @@ const DashboardPage = () => {
 
       {/* Main Content */}
       <div className="flex-1 p-8">
-        <h1 className="text-3xl font-semibold text-[#605EA1] mb-6">
-          HR Dashboard
-        </h1>
+        <h1 className="text-3xl font-semibold text-[#605EA1] mb-6">HR Dashboard</h1>
         <p className="text-lg mb-4">Hi Mock User!</p>
+
+        {/* Logout Button */}
+        <button
+          onClick={handleLogout}
+          className="absolute top-5 right-5 p-3 bg-red-500 text-white rounded-full flex items-center justify-center"
+        >
+          <HiLogout className="text-sm" />
+        </button>
 
         {/* Add the layout for your 4 containers, graph, and table */}
         <div className="grid grid-cols-4 gap-6 mb-8">

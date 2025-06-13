@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar'; // Sidebar component
 import { useLocation } from 'react-router-dom';
-import { HiPencil, HiTrash } from 'react-icons/hi';
+import { HiPencil, HiTrash, HiPlus } from 'react-icons/hi';
 
 const EmployeePage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [employeeToEdit, setEmployeeToEdit] = useState(null);
+  const [newEmployee, setNewEmployee] = useState({
+    name: '',
+    position: '',
+    status: 'Active',
+  });
   const [employeeData, setEmployeeData] = useState([
     {
       name: 'John Doe',
@@ -38,15 +43,26 @@ const EmployeePage = () => {
   const closeModal = () => {
     setModalOpen(false);
     setEmployeeToEdit(null);
+    setNewEmployee({
+      name: '',
+      position: '',
+      status: 'Active',
+    });
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    setEmployeeData(
-      employeeData.map((emp) =>
-        emp.name === employeeToEdit.name ? employeeToEdit : emp
-      )
-    );
+    if (employeeToEdit) {
+      // Edit existing employee
+      setEmployeeData(
+        employeeData.map((emp) =>
+          emp.name === employeeToEdit.name ? employeeToEdit : emp
+        )
+      );
+    } else {
+      // Add new employee
+      setEmployeeData([...employeeData, newEmployee]);
+    }
     closeModal();
   };
 
@@ -88,7 +104,16 @@ const EmployeePage = () => {
 
         {/* Employee Table Section */}
         <div className="bg-white p-6 shadow-md rounded-lg">
+                  <div className="flex justify-between items-center">
           <h2 className="text-xl font-semibold text-[#605EA1] mb-4">Employee List</h2>
+          <button
+            onClick={() => setModalOpen(true)}
+            className="bg-[#605EA1] text-white py-2 px-4 rounded-full flex items-center"
+          >
+            <HiPlus className="mr-2" />
+            New Employee
+          </button>
+        </div>
           <table className="min-w-full mt-4 bg-white rounded-lg shadow-md overflow-hidden">
             <thead className="bg-gray-200 text-[#605EA1]">
               <tr>
@@ -128,22 +153,23 @@ const EmployeePage = () => {
         </div>
       </div>
 
-      {/* Modal for Editing Employee */}
+      {/* Modal for Adding / Editing Employee */}
       {modalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
-            <h2 className="text-2xl font-semibold text-[#605EA1] mb-6">Edit Employee</h2>
+            <h2 className="text-2xl font-semibold text-[#605EA1] mb-6">
+              {employeeToEdit ? 'Edit Employee' : 'Add New Employee'}
+            </h2>
             <form onSubmit={handleFormSubmit}>
               <div className="mb-4">
                 <label className="block text-sm font-semibold text-gray-700">Name</label>
                 <input
                   type="text"
-                  value={employeeToEdit?.name || ''}
+                  value={employeeToEdit ? employeeToEdit.name : newEmployee.name}
                   onChange={(e) =>
-                    setEmployeeToEdit({
-                      ...employeeToEdit,
-                      name: e.target.value,
-                    })
+                    employeeToEdit
+                      ? setEmployeeToEdit({ ...employeeToEdit, name: e.target.value })
+                      : setNewEmployee({ ...newEmployee, name: e.target.value })
                   }
                   className="w-full p-2 border border-gray-300 rounded"
                 />
@@ -152,12 +178,11 @@ const EmployeePage = () => {
                 <label className="block text-sm font-semibold text-gray-700">Position</label>
                 <input
                   type="text"
-                  value={employeeToEdit?.position || ''}
+                  value={employeeToEdit ? employeeToEdit.position : newEmployee.position}
                   onChange={(e) =>
-                    setEmployeeToEdit({
-                      ...employeeToEdit,
-                      position: e.target.value,
-                    })
+                    employeeToEdit
+                      ? setEmployeeToEdit({ ...employeeToEdit, position: e.target.value })
+                      : setNewEmployee({ ...newEmployee, position: e.target.value })
                   }
                   className="w-full p-2 border border-gray-300 rounded"
                 />
@@ -165,12 +190,11 @@ const EmployeePage = () => {
               <div className="mb-4">
                 <label className="block text-sm font-semibold text-gray-700">Status</label>
                 <select
-                  value={employeeToEdit?.status || ''}
+                  value={employeeToEdit ? employeeToEdit.status : newEmployee.status}
                   onChange={(e) =>
-                    setEmployeeToEdit({
-                      ...employeeToEdit,
-                      status: e.target.value,
-                    })
+                    employeeToEdit
+                      ? setEmployeeToEdit({ ...employeeToEdit, status: e.target.value })
+                      : setNewEmployee({ ...newEmployee, status: e.target.value })
                   }
                   className="w-full p-2 border border-gray-300 rounded"
                 >
@@ -194,7 +218,7 @@ const EmployeePage = () => {
                   type="submit"
                   className="bg-[#605EA1] text-white py-2 px-4 rounded"
                 >
-                  Save Changes
+                  {employeeToEdit ? 'Save Changes' : 'Add Employee'}
                 </button>
               </div>
             </form>
