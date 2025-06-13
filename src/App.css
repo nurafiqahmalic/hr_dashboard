@@ -36,3 +36,27 @@
     transform: rotate(360deg);
   }
 }
+
+/* App.css or your global styles */
+.react-calendar {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #ffffff; /* Add a background color */
+}
+
+.react-calendar__tile--active {
+  background: #605ea1;
+  color: white;
+}
+
+.react-calendar__tile--hover {
+  background: #f3f4f6;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #a0aec0;
+}
+
+.react-calendar__tile {
+  padding: 10px;
+}
