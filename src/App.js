@@ -6,6 +6,7 @@ import DashboardPage from './components/DashboardPage';
 import SchedulePage from './components/SchedulePage';
 import JobPage from './components/JobPage';
 import CandidatesPage from './components/CandidatesPage';
+import EmployeePage from './components/EmployeePage';
 const App = () => {
   return (
     <Router>
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/schedule" element={<SchedulePage />} />
         <Route path="/job" element={<JobPage />} />
         <Route path="/candidates" element={<CandidatesPage />} />
+        <Route path="/employee" element={<EmployeePage />} />
 
         <Route path="/" element={<LoginPage />} />
         <Route
