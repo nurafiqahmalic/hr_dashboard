@@ -63,8 +63,8 @@ const CandidatesPage = () => {
       // Edit existing candidate
       setCandidateData(
         candidateData.map((candidate) =>
-          candidate.name === candidateToEdit.name ? candidateToEdit : candidate
-        )
+          candidate.name === candidateToEdit.name ? candidateToEdit : candidate,
+        ),
       );
     } else {
       // Add new candidate
@@ -103,19 +103,23 @@ const CandidatesPage = () => {
 
       {/* Main Content */}
       <div className="flex-1 p-8">
-        <h1 className="text-3xl font-semibold text-[#605EA1] mb-6">Candidates</h1>
+        <h1 className="text-3xl font-semibold text-[#605EA1] mb-6">
+          Candidates
+        </h1>
         {/* Candidates Table */}
         <div className="bg-white p-6 shadow-md rounded-lg">
-                  <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-[#605EA1] mb-4">Candidate List</h2>
-          <button
-            onClick={() => setModalOpen(true)}
-            className="bg-[#605EA1] text-white py-2 px-4 rounded-full flex items-center"
-          >
-            <HiPlus className="mr-2" />
-            New Candidate
-          </button>
-        </div>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold text-[#605EA1] mb-4">
+              Candidate List
+            </h2>
+            <button
+              onClick={() => setModalOpen(true)}
+              className="bg-[#605EA1] text-white py-2 px-4 rounded-full flex items-center"
+            >
+              <HiPlus className="mr-2" />
+              New Candidate
+            </button>
+          </div>
           <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
             <thead className="bg-gray-200 text-[#605EA1]">
               <tr>
@@ -164,39 +168,73 @@ const CandidatesPage = () => {
             </h2>
             <form onSubmit={handleFormSubmit}>
               <div className="mb-4">
-                <label className="block text-sm font-semibold text-gray-700">Name</label>
+                <label className="block text-sm font-semibold text-gray-700">
+                  Name
+                </label>
                 <input
                   type="text"
-                  value={candidateToEdit ? candidateToEdit.name : newCandidate.name}
+                  value={
+                    candidateToEdit ? candidateToEdit.name : newCandidate.name
+                  }
                   onChange={(e) =>
                     candidateToEdit
-                      ? setCandidateToEdit({ ...candidateToEdit, name: e.target.value })
-                      : setNewCandidate({ ...newCandidate, name: e.target.value })
+                      ? setCandidateToEdit({
+                          ...candidateToEdit,
+                          name: e.target.value,
+                        })
+                      : setNewCandidate({
+                          ...newCandidate,
+                          name: e.target.value,
+                        })
                   }
                   className="w-full p-2 border border-gray-300 rounded"
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-semibold text-gray-700">Position</label>
+                <label className="block text-sm font-semibold text-gray-700">
+                  Position
+                </label>
                 <input
                   type="text"
-                  value={candidateToEdit ? candidateToEdit.position : newCandidate.position}
+                  value={
+                    candidateToEdit
+                      ? candidateToEdit.position
+                      : newCandidate.position
+                  }
                   onChange={(e) =>
                     candidateToEdit
-                      ? setCandidateToEdit({ ...candidateToEdit, position: e.target.value })
-                      : setNewCandidate({ ...newCandidate, position: e.target.value })
+                      ? setCandidateToEdit({
+                          ...candidateToEdit,
+                          position: e.target.value,
+                        })
+                      : setNewCandidate({
+                          ...newCandidate,
+                          position: e.target.value,
+                        })
                   }
                   className="w-full p-2 border border-gray-300 rounded"
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-semibold text-gray-700">Status</label>
+                <label className="block text-sm font-semibold text-gray-700">
+                  Status
+                </label>
                 <select
-                  value={candidateToEdit ? candidateToEdit.status : newCandidate.status}
+                  value={
+                    candidateToEdit
+                      ? candidateToEdit.status
+                      : newCandidate.status
+                  }
                   onChange={(e) =>
                     candidateToEdit
-                      ? setCandidateToEdit({ ...candidateToEdit, status: e.target.value })
-                      : setNewCandidate({ ...newCandidate, status: e.target.value })
+                      ? setCandidateToEdit({
+                          ...candidateToEdit,
+                          status: e.target.value,
+                        })
+                      : setNewCandidate({
+                          ...newCandidate,
+                          status: e.target.value,
+                        })
                   }
                   className="w-full p-2 border border-gray-300 rounded"
                 >

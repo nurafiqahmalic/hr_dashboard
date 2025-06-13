@@ -71,7 +71,10 @@ const SchedulePage = () => {
   const handleStatusChange = (index, status) => {
     const updatedTasks = [...filteredTasks];
     updatedTasks[index].status = status;
-    const updatedOnboardingTasks = { ...onboardingTasks, [selectedDate]: updatedTasks };
+    const updatedOnboardingTasks = {
+      ...onboardingTasks,
+      [selectedDate]: updatedTasks,
+    };
     setOnboardingTasks(updatedOnboardingTasks);
   };
 
@@ -92,7 +95,9 @@ const SchedulePage = () => {
         <div className="mt-6 grid grid-cols-2 gap-6">
           {/* Calendar Section */}
           <div className="bg-white p-6 shadow-md rounded-lg col-span-2 lg:col-span-1">
-            <h2 className="text-xl font-semibold text-[#605EA1] mb-2">Calendar</h2>
+            <h2 className="text-xl font-semibold text-[#605EA1] mb-2">
+              Calendar
+            </h2>
             <div className="flex justify-center items-center">
               <Calendar
                 onChange={setDate}
@@ -104,7 +109,9 @@ const SchedulePage = () => {
 
           {/* TODO Reminder Section */}
           <div className="bg-white p-6 shadow-md rounded-lg col-span-2 lg:col-span-1">
-            <h2 className="text-xl font-semibold text-[#605EA1] mb-2">To Do Reminder</h2>
+            <h2 className="text-xl font-semibold text-[#605EA1] mb-2">
+              To Do Reminder
+            </h2>
             <ul className="space-y-3">
               {toDoList.map((task, index) => (
                 <li key={index} className="flex items-center">
@@ -114,7 +121,11 @@ const SchedulePage = () => {
                     checked={task.completed}
                     onChange={() => toggleTaskCompletion(index)}
                   />
-                  <span className={task.completed ? 'line-through text-gray-500' : ''}>
+                  <span
+                    className={
+                      task.completed ? 'line-through text-gray-500' : ''
+                    }
+                  >
                     {task.task}
                   </span>
                 </li>
@@ -125,7 +136,9 @@ const SchedulePage = () => {
 
         {/* Schedule Table Section */}
         <div className="bg-white p-6 shadow-md rounded-lg col-span-2 lg:col-span-1">
-          <h2 className="text-xl font-semibold text-[#605EA1]">Onboarding Tasks</h2>
+          <h2 className="text-xl font-semibold text-[#605EA1]">
+            Onboarding Tasks
+          </h2>
           {filteredTasks.length === 0 ? (
             <p className="text-gray-500">No tasks for this day.</p>
           ) : (
@@ -148,7 +161,9 @@ const SchedulePage = () => {
                       {/* Dropdown for status */}
                       <select
                         value={task.status}
-                        onChange={(e) => handleStatusChange(index, e.target.value)}
+                        onChange={(e) =>
+                          handleStatusChange(index, e.target.value)
+                        }
                         className={`py-1 px-3 rounded-full ${task.status === 'Pending' ? 'bg-yellow-100 text-yellow-500' : 'bg-green-100 text-green-500'}`}
                       >
                         <option value="Pending">Pending</option>

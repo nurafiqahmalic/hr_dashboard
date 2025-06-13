@@ -56,8 +56,8 @@ const EmployeePage = () => {
       // Edit existing employee
       setEmployeeData(
         employeeData.map((emp) =>
-          emp.name === employeeToEdit.name ? employeeToEdit : emp
-        )
+          emp.name === employeeToEdit.name ? employeeToEdit : emp,
+        ),
       );
     } else {
       // Add new employee
@@ -104,16 +104,18 @@ const EmployeePage = () => {
 
         {/* Employee Table Section */}
         <div className="bg-white p-6 shadow-md rounded-lg">
-                  <div className="flex justify-between items-center">
-          <h2 className="text-xl font-semibold text-[#605EA1] mb-4">Employee List</h2>
-          <button
-            onClick={() => setModalOpen(true)}
-            className="bg-[#605EA1] text-white py-2 px-4 rounded-full flex items-center"
-          >
-            <HiPlus className="mr-2" />
-            New Employee
-          </button>
-        </div>
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-semibold text-[#605EA1] mb-4">
+              Employee List
+            </h2>
+            <button
+              onClick={() => setModalOpen(true)}
+              className="bg-[#605EA1] text-white py-2 px-4 rounded-full flex items-center"
+            >
+              <HiPlus className="mr-2" />
+              New Employee
+            </button>
+          </div>
           <table className="min-w-full mt-4 bg-white rounded-lg shadow-md overflow-hidden">
             <thead className="bg-gray-200 text-[#605EA1]">
               <tr>
@@ -162,39 +164,68 @@ const EmployeePage = () => {
             </h2>
             <form onSubmit={handleFormSubmit}>
               <div className="mb-4">
-                <label className="block text-sm font-semibold text-gray-700">Name</label>
+                <label className="block text-sm font-semibold text-gray-700">
+                  Name
+                </label>
                 <input
                   type="text"
-                  value={employeeToEdit ? employeeToEdit.name : newEmployee.name}
+                  value={
+                    employeeToEdit ? employeeToEdit.name : newEmployee.name
+                  }
                   onChange={(e) =>
                     employeeToEdit
-                      ? setEmployeeToEdit({ ...employeeToEdit, name: e.target.value })
+                      ? setEmployeeToEdit({
+                          ...employeeToEdit,
+                          name: e.target.value,
+                        })
                       : setNewEmployee({ ...newEmployee, name: e.target.value })
                   }
                   className="w-full p-2 border border-gray-300 rounded"
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-semibold text-gray-700">Position</label>
+                <label className="block text-sm font-semibold text-gray-700">
+                  Position
+                </label>
                 <input
                   type="text"
-                  value={employeeToEdit ? employeeToEdit.position : newEmployee.position}
+                  value={
+                    employeeToEdit
+                      ? employeeToEdit.position
+                      : newEmployee.position
+                  }
                   onChange={(e) =>
                     employeeToEdit
-                      ? setEmployeeToEdit({ ...employeeToEdit, position: e.target.value })
-                      : setNewEmployee({ ...newEmployee, position: e.target.value })
+                      ? setEmployeeToEdit({
+                          ...employeeToEdit,
+                          position: e.target.value,
+                        })
+                      : setNewEmployee({
+                          ...newEmployee,
+                          position: e.target.value,
+                        })
                   }
                   className="w-full p-2 border border-gray-300 rounded"
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-semibold text-gray-700">Status</label>
+                <label className="block text-sm font-semibold text-gray-700">
+                  Status
+                </label>
                 <select
-                  value={employeeToEdit ? employeeToEdit.status : newEmployee.status}
+                  value={
+                    employeeToEdit ? employeeToEdit.status : newEmployee.status
+                  }
                   onChange={(e) =>
                     employeeToEdit
-                      ? setEmployeeToEdit({ ...employeeToEdit, status: e.target.value })
-                      : setNewEmployee({ ...newEmployee, status: e.target.value })
+                      ? setEmployeeToEdit({
+                          ...employeeToEdit,
+                          status: e.target.value,
+                        })
+                      : setNewEmployee({
+                          ...newEmployee,
+                          status: e.target.value,
+                        })
                   }
                   className="w-full p-2 border border-gray-300 rounded"
                 >

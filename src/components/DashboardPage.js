@@ -112,7 +112,9 @@ const DashboardPage = () => {
 
       {/* Main Content */}
       <div className="flex-1 p-8">
-        <h1 className="text-3xl font-semibold text-[#605EA1] mb-6">HR Dashboard</h1>
+        <h1 className="text-3xl font-semibold text-[#605EA1] mb-6">
+          HR Dashboard
+        </h1>
         <p className="text-lg mb-4">Hi Mock User!</p>
 
         {/* Logout Button */}
