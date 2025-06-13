@@ -5,7 +5,7 @@ import RegisterPage from './components/RegisterPage';
 import DashboardPage from './components/DashboardPage';
 import SchedulePage from './components/SchedulePage';
 import JobPage from './components/JobPage';
-
+import CandidatesPage from './components/CandidatesPage';
 const App = () => {
   return (
     <Router>
@@ -15,6 +15,7 @@ const App = () => {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/schedule" element={<SchedulePage />} />
         <Route path="/job" element={<JobPage />} />
+        <Route path="/candidates" element={<CandidatesPage />} />
 
         <Route path="/" element={<LoginPage />} />
         <Route

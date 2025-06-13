@@ -3,68 +3,73 @@ import { useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar'; // Import the Sidebar component
 import { HiPencil, HiTrash } from 'react-icons/hi'; // Icons for edit and delete actions
 
-const JobPage = () => {
+const CandidatesPage = () => {
   const location = useLocation();
-  const [sidebarOpen, setSidebarOpen] = useState(false); // Sidebar starts collapsed
+  const [sidebarOpen, setSidebarOpen] = useState(false); // Start with collapsed sidebar
   const [modalOpen, setModalOpen] = useState(false);
-  const [jobToEdit, setJobToEdit] = useState(null); // For storing the job being edited
+  const [candidateToEdit, setCandidateToEdit] = useState(null);
 
-  const [jobData] = useState([
+  const [candidateData] = useState([
     {
-      jobTitle: 'Software Engineer',
-      department: 'Engineering',
-      datePosted: 'Apr 1, 2025',
-      status: 'OPEN',
+      name: 'John Doe',
+      position: 'Sales Specialist',
+      status: 'Screening',
     },
     {
-      jobTitle: 'Product Designer',
-      department: 'Design',
-      datePosted: 'Mar 24, 2025',
-      status: 'OPEN',
+      name: 'Ahmad Abu',
+      position: 'IT Intern',
+      status: 'Interview',
     },
     {
-      jobTitle: 'Marketing Specialist',
-      department: 'Marketing',
-      datePosted: 'Jan 2, 2025',
-      status: 'CLOSED',
+      name: 'Nur Alia',
+      position: 'IT Intern',
+      status: 'Rejected',
     },
     {
-      jobTitle: 'IT Intern',
-      department: 'IT',
-      datePosted: 'Oct 23, 2024',
-      status: 'CLOSED',
+      name: 'Alice',
+      position: 'Software Engineer',
+      status: 'Offer',
+    },
+    {
+      name: 'Adina',
+      position: 'Sales Specialist',
+      status: 'Interview',
     },
   ]);
 
-  const openEditModal = (job) => {
-    setJobToEdit(job);
+  const openEditModal = (candidate) => {
+    setCandidateToEdit(candidate);
     setModalOpen(true);
   };
 
   const closeModal = () => {
     setModalOpen(false);
-    setJobToEdit(null);
+    setCandidateToEdit(null);
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log('Updated Job:', jobToEdit);
+    console.log('Updated Candidate:', candidateToEdit);
     closeModal();
-  };
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
   };
 
   const getStatusClass = (status) => {
     switch (status) {
-      case 'OPEN':
-        return 'bg-green-100 text-green-500';
-      case 'CLOSED':
+      case 'Screening':
+        return 'bg-blue-100 text-blue-500';
+      case 'Interview':
+        return 'bg-yellow-100 text-yellow-500';
+      case 'Rejected':
         return 'bg-red-100 text-red-500';
+      case 'Offer':
+        return 'bg-green-100 text-green-500';
       default:
         return 'bg-gray-100 text-gray-500';
     }
+  };
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
   };
 
   return (
@@ -79,40 +84,38 @@ const JobPage = () => {
       {/* Main Content */}
       <div className="flex-1 p-8">
         <h1 className="text-3xl font-semibold text-[#605EA1] mb-6">
-          Job Openings
+          Candidates
         </h1>
 
-        {/* Job Openings Table */}
+        {/* Candidates Table */}
         <div className="bg-white p-6 shadow-md rounded-lg">
           <h2 className="text-xl font-semibold text-[#605EA1] mb-4">
-            Available Job Openings
+            Candidate List
           </h2>
           <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
             <thead className="bg-gray-200 text-[#605EA1]">
               <tr>
-                <th className="py-3 px-6 text-left">Job Title</th>
-                <th className="py-3 px-6 text-left">Department</th>
-                <th className="py-3 px-6 text-left">Date Posted</th>
+                <th className="py-3 px-6 text-left">Name</th>
+                <th className="py-3 px-6 text-left">Position</th>
                 <th className="py-3 px-6 text-left">Status</th>
                 <th className="py-3 px-6 text-left">Action</th>
               </tr>
             </thead>
             <tbody>
-              {jobData.map((job, index) => (
+              {candidateData.map((candidate, index) => (
                 <tr key={index} className="border-t">
-                  <td className="py-3 px-6">{job.jobTitle}</td>
-                  <td className="py-3 px-6">{job.department}</td>
-                  <td className="py-3 px-6">{job.datePosted}</td>
+                  <td className="py-3 px-6">{candidate.name}</td>
+                  <td className="py-3 px-6">{candidate.position}</td>
                   <td className="py-3 px-6">
                     <span
-                      className={`inline-block py-1 px-3 rounded-full text-sm font-semibold ${getStatusClass(job.status)}`}
+                      className={`inline-block py-1 px-3 rounded-full text-sm font-semibold ${getStatusClass(candidate.status)}`}
                     >
-                      {job.status}
+                      {candidate.status}
                     </span>
                   </td>
                   <td className="py-3 px-6">
                     <button
-                      onClick={() => openEditModal(job)}
+                      onClick={() => openEditModal(candidate)}
                       className="inline-block mr-2 py-2 px-4 rounded-full bg-[#605EA1] text-white font-semibold"
                     >
                       <HiPencil className="inline-block" />
@@ -128,49 +131,42 @@ const JobPage = () => {
         </div>
       </div>
 
-      {/* Modal for Editing Job */}
+      {/* Modal for Editing Candidate */}
       {modalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
             <h2 className="text-2xl font-semibold text-[#605EA1] mb-6">
-              Edit Job
+              Edit Candidate
             </h2>
             <form onSubmit={handleFormSubmit}>
               <div className="mb-4">
                 <label className="block text-sm font-semibold text-gray-700">
-                  Job Title
+                  Name
                 </label>
                 <input
                   type="text"
-                  value={jobToEdit?.jobTitle || ''}
+                  value={candidateToEdit?.name || ''}
                   onChange={(e) =>
-                    setJobToEdit({ ...jobToEdit, jobTitle: e.target.value })
+                    setCandidateToEdit({
+                      ...candidateToEdit,
+                      name: e.target.value,
+                    })
                   }
                   className="w-full p-2 border border-gray-300 rounded"
                 />
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-semibold text-gray-700">
-                  Department
+                  Position
                 </label>
                 <input
                   type="text"
-                  value={jobToEdit?.department || ''}
+                  value={candidateToEdit?.position || ''}
                   onChange={(e) =>
-                    setJobToEdit({ ...jobToEdit, department: e.target.value })
-                  }
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-semibold text-gray-700">
-                  Date Posted
-                </label>
-                <input
-                  type="date"
-                  value={jobToEdit?.datePosted || ''}
-                  onChange={(e) =>
-                    setJobToEdit({ ...jobToEdit, datePosted: e.target.value })
+                    setCandidateToEdit({
+                      ...candidateToEdit,
+                      position: e.target.value,
+                    })
                   }
                   className="w-full p-2 border border-gray-300 rounded"
                 />
@@ -180,14 +176,19 @@ const JobPage = () => {
                   Status
                 </label>
                 <select
-                  value={jobToEdit?.status || ''}
+                  value={candidateToEdit?.status || ''}
                   onChange={(e) =>
-                    setJobToEdit({ ...jobToEdit, status: e.target.value })
+                    setCandidateToEdit({
+                      ...candidateToEdit,
+                      status: e.target.value,
+                    })
                   }
                   className="w-full p-2 border border-gray-300 rounded"
                 >
-                  <option value="OPEN">Open</option>
-                  <option value="CLOSED">Closed</option>
+                  <option value="Screening">Screening</option>
+                  <option value="Interview">Interview</option>
+                  <option value="Rejected">Rejected</option>
+                  <option value="Offer">Offer</option>
                 </select>
               </div>
               <div className="flex justify-end">
@@ -213,4 +214,4 @@ const JobPage = () => {
   );
 };
 
-export default JobPage;
+export default CandidatesPage;
